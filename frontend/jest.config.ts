@@ -4,7 +4,10 @@ const config: Config.InitialOptions = {
   clearMocks: true,
   testEnvironment: 'jsdom',
   preset: 'ts-jest',
-  transform: { '^.+.(ts|tsx)$': 'ts-jest' },
+  transform: {
+    '^.+.(ts|tsx)$': 'ts-jest',
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
+  },
   roots: ['<rootDir>/src'],
   testPathIgnorePatterns: ['/node_modules/'],
   testRegex: '.(spec|test).(ts|tsx)$',
@@ -13,7 +16,6 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     '\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/__mocks__/fileMock.js',
-    '\\.(css|less)$': 'identity-obj-proxy',
   },
 };
 export default config;

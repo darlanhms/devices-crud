@@ -1,9 +1,10 @@
 import Button from './components/Button';
 import Input from './components/Input';
+import { VStack } from './components/Stack';
 
 const App: React.FC = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '200px' }}>
+    <VStack spacing={3}>
       <Input label="Nome" />
       <Input placeholder="Simple input" helperText="Nome é obrigatório" error />
       <Input placeholder="Simple input" helperText="Nome é obrigatório" />
@@ -17,7 +18,7 @@ const App: React.FC = () => {
       <div>
         <Button variant="success">Success button</Button>
       </div>
-    </div>
+    </VStack>
   );
 };
 

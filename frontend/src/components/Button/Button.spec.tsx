@@ -10,27 +10,19 @@ describe('Button', () => {
     expect(buttonElement).toBeInTheDocument();
   });
 
-  it('applies default styling when a variant is not supplied', () => {
-    render(<Button>Simple button</Button>);
-
-    const buttonElement = screen.getByRole('button');
-
-    expect(buttonElement).toHaveStyle('background: var(--primary-color)');
-  });
-
-  it('applies error variant styles', () => {
+  it('applies error variant classes', () => {
     render(<Button variant="error">Simple button</Button>);
 
     const buttonElement = screen.getByRole('button');
 
-    expect(buttonElement).toHaveStyle('background: var(--error-color)');
+    expect(buttonElement).toHaveClass('error');
   });
 
-  it('applies success variant styles', () => {
+  it('applies success variant classes', () => {
     render(<Button variant="success">Simple button</Button>);
 
     const buttonElement = screen.getByRole('button');
 
-    expect(buttonElement).toHaveStyle('background: var(--success-color)');
+    expect(buttonElement).toHaveClass('success');
   });
 });

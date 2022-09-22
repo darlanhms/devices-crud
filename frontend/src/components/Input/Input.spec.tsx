@@ -42,7 +42,7 @@ describe('Input', () => {
     const inputElement = screen.getByRole('textbox');
     const helperTextElement = screen.getByText(helperText);
 
-    expect(inputElement).toHaveStyle('border-color: var(--error-color)');
-    expect(helperTextElement).toHaveStyle('color: var(--error-color)');
+    expect(inputElement).toHaveClass('error');
+    expect(helperTextElement).toHaveClass('error');
   });
 });
