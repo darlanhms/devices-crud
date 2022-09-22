@@ -1,0 +1,30 @@
+.common {
+  padding: 0.450rem 1.225rem;
+  border-radius: 0.5rem;
+  border-color: transparent;
+  outline: transparent solid 0px;
+  background: var(--primary-color);
+  color: var(--primary-contrast-color);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.common:active {
+  background: var(--primary-color-lighter);
+}
+
+.error {
+  background: var(--error-color);
+}
+.error:active {
+  background: var(--error-color-darker);
+}
+
+.success {
+  background: var(--success-color);
+}
+.success:active {
+  background: var(--success-color-darker);
+}

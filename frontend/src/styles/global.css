@@ -1,11 +1,14 @@
 :root {
   --font-family:  'Montserrat', sans-serif;
-  --white: 'white';
-  --black: 'black'
-  --primary-color: '#132c85';
+  --white: white;
+  --black: black;
+  --primary-color: #2C5282;
   --primary-contrast-color: var(--white);
-  --error-color: '#FF0000';
-  --success-color: '#19AF28';
+  --primary-color-lighter: #406b9f;
+  --error-color: #FF0000;
+  --error-color-darker: #8f1212;
+  --success-color: #19AF28;
+  --success-color-darker: #14611c;
 }
 
 * {
