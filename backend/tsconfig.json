@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "isolatedModules": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmitOnError": true,
+    "resolveJsonModule": true,
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./build",
+  },
+  "include": [
+    "src/*.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
