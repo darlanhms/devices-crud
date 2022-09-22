@@ -37,6 +37,7 @@ module.exports = {
     'react/prop-types': 'off',
     'import/no-extraneous-dependencies': 'off',
     'react/react-in-jsx-scope': 'off',
+    'no-useless-constructor': 'off',
     'class-methods-use-this': 'off'
   },
   settings: {
