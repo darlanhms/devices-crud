@@ -1,13 +1,14 @@
 .common {
+  display: inline-flex;
   padding: 0.450rem 1.225rem;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   border-color: transparent;
   outline: transparent solid 0px;
   background: var(--primary-color);
   color: var(--primary-contrast-color);
   font-family: inherit;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
   transition: 0.2s;
 }

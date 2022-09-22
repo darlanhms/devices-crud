@@ -9,6 +9,11 @@
   --error-color-darker: #8f1212;
   --success-color: #19AF28;
   --success-color-darker: #14611c;
+  --border-radius-md: 0.5rem;
+  --font-size-md: 1rem;
+  --font-size-sm: 0.850rem;
+  --font-weight-bold: 600;
+  --font-weight-semibold: 500;
 }
 
 * {
