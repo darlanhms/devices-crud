@@ -3,6 +3,7 @@ import NotFoundError from '../../errors/NotFoundError';
 import { deviceRepo } from '../../repositories';
 import CreateDevice from '../../useCases/createDevice/createDevice';
 import createDeviceSchema from '../../useCases/createDevice/createDeviceSchema';
+import DeleteDevice from '../../useCases/deleteDevice/deleteDevice';
 import FindDeviceById from '../../useCases/findDeviceById/findDeviceById';
 import ListDevices from '../../useCases/listDevices/listDevices';
 import UpdateDevice from '../../useCases/updateDevice/updateDevice';
@@ -60,6 +61,14 @@ router.put('/devices/:id', validateRequest(updateDeviceSchema), (req, res) => {
 
     return res.status(500).send();
   }
+});
+
+router.delete('/devices/:id', (req, res) => {
+  const deleteDevice = new DeleteDevice(deviceRepo);
+
+  const deleted = deleteDevice.execute(req.params.id);
+
+  return res.status(200).json({ deleted });
 });
 
 export default router;

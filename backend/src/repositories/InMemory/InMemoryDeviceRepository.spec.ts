@@ -109,8 +109,9 @@ describe('In memory device repository', () => {
 
     deviceRepo.save(device);
 
-    deviceRepo.delete(device.id);
+    const deleted = deviceRepo.delete(device.id);
 
     expect(deviceRepo.items).toHaveLength(0);
+    expect(deleted).toBeTruthy();
   });
 });
