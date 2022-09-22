@@ -1,11 +1,11 @@
 import Joi from 'joi';
-import { CreateDeviceRequest } from './createDevice';
+import { UpdateDeviceRequest } from './updateDevice';
 
-const createDeviceSchema = Joi.object<CreateDeviceRequest>({
+const updateDeviceSchema = Joi.object<UpdateDeviceRequest>({
   name: Joi.string().required(),
   serial: Joi.string().required(),
   macAddress: Joi.string().required(),
   type: Joi.string().valid('camera', 'sensor', 'remoteControl').required(),
 });
 
-export default createDeviceSchema;
+export default updateDeviceSchema;

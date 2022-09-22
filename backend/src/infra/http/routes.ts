@@ -1,9 +1,12 @@
 import { Router } from 'express';
+import NotFoundError from '../../errors/NotFoundError';
 import { deviceRepo } from '../../repositories';
 import CreateDevice from '../../useCases/createDevice/createDevice';
 import createDeviceSchema from '../../useCases/createDevice/createDeviceSchema';
 import FindDeviceById from '../../useCases/findDeviceById/findDeviceById';
 import ListDevices from '../../useCases/listDevices/listDevices';
+import UpdateDevice from '../../useCases/updateDevice/updateDevice';
+import updateDeviceSchema from '../../useCases/updateDevice/updateDeviceSchema';
 import validateRequest from './middlewares/validateRequest';
 
 const router = Router();
@@ -38,6 +41,25 @@ router.get('/devices/:id', (req, res) => {
   }
 
   return res.status(404).send();
+});
+
+router.put('/devices/:id', validateRequest(updateDeviceSchema), (req, res) => {
+  const updateDevice = new UpdateDevice(deviceRepo);
+
+  try {
+    const updatedDevice = updateDevice.execute({
+      id: req.params.id,
+      ...req.body,
+    });
+
+    return res.status(200).json(updatedDevice);
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return res.status(404).send({ error: error.message });
+    }
+
+    return res.status(500).send();
+  }
 });
 
 export default router;

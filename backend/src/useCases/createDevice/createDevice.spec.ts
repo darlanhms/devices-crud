@@ -37,14 +37,14 @@ describe('Create device', () => {
   });
 
   it('returns an error if device type is incorrect', async () => {
-    const devicePayloadWithoutName = {
+    const devicePayloadWithInvalidType = {
       name: 'Camera Device',
       macAddress: faker.internet.mac(),
       serial: faker.datatype.uuid(),
       type: 'any invalid device type',
     };
 
-    const response = await request(app).post('/api/devices').send(devicePayloadWithoutName);
+    const response = await request(app).post('/api/devices').send(devicePayloadWithInvalidType);
 
     expect(response.status).toBe(400);
     expect(response.body.error).toMatch(/"type" must be one of/i);
