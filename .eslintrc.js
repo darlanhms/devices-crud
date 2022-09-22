@@ -35,6 +35,7 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'react/react-in-jsx-scope': 'off'
   },
   settings: {
