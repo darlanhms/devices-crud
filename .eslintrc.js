@@ -36,7 +36,8 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/prop-types': 'off',
     'import/no-extraneous-dependencies': 'off',
-    'react/react-in-jsx-scope': 'off'
+    'react/react-in-jsx-scope': 'off',
+    'class-methods-use-this': 'off'
   },
   settings: {
     'import/resolver': {
