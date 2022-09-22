@@ -52,7 +52,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div {...containerProps}>
       {label && (
-        <label className={labelClasses} {...labelProps}>
+        <label {...labelProps} className={labelClasses}>
           {label}
         </label>
       )}
