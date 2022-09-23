@@ -1,24 +1,32 @@
 /* eslint-disable react/display-name */
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, HTMLAttributes } from 'react';
 import clsx from 'classnames';
 
 import styles from './styles.module.css';
 
 export interface TableComponent extends FC<PropsWithChildren> {
-  Container: FC<PropsWithChildren>;
-  Body: FC<PropsWithChildren>;
-  Head: FC<PropsWithChildren>;
-  Row: FC<PropsWithChildren>;
-  Th: FC<PropsWithChildren>;
-  Td: FC<PropsWithChildren>;
+  Container: FC<HTMLAttributes<HTMLDivElement>>;
+  Body: FC<HTMLAttributes<HTMLDivElement>>;
+  Head: FC<HTMLAttributes<HTMLDivElement>>;
+  Row: FC<HTMLAttributes<HTMLDivElement>>;
+  Th: FC<HTMLAttributes<HTMLDivElement>>;
+  Td: FC<HTMLAttributes<HTMLDivElement>>;
 }
 
-const Table: TableComponent = ({ children }) => {
-  return <table className={styles.table}>{children}</table>;
+const Table: TableComponent = ({ children, ...rest }) => {
+  return (
+    <table className={styles.table} {...rest}>
+      {children}
+    </table>
+  );
 };
 
-Table.Container = ({ children }) => {
-  return <div className={styles.container}>{children}</div>;
+Table.Container = ({ children, className, ...rest }) => {
+  return (
+    <div className={clsx(styles.container, className)} {...rest}>
+      {children}
+    </div>
+  );
 };
 
 Table.Row = ({ children }) => {

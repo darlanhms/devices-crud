@@ -1,5 +1,11 @@
 :root {
   --font-family:  'Montserrat', sans-serif;
+  --font-size-xl: 1.5rem;
+  --font-size-md: 1rem;
+  --font-size-sm: 0.85rem;
+  --font-size-xs: 0.75rem;
+  --font-weight-bold: 600;
+  --font-weight-semibold: 500;
   --white: white;
   --black: black;
   --primary-color: #2C5282;
@@ -11,11 +17,6 @@
   --success-color-darker: #14611c;
   --border-color: #E2E8F0;
   --border-radius-md: 0.5rem;
-  --font-size-md: 1rem;
-  --font-size-sm: 0.85rem;
-  --font-size-xs: 0.75rem;
-  --font-weight-bold: 600;
-  --font-weight-semibold: 500;
 }
 
 * {

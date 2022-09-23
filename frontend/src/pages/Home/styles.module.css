@@ -1,0 +1,21 @@
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding-top: 1.2rem;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
