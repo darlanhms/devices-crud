@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, classNam
   return (
     <button
       {...rest}
-      className={clsx(styles.common, className, {
+      className={clsx(styles.button, className, {
         [styles.error]: variant === 'error',
         [styles.success]: variant === 'success',
       })}

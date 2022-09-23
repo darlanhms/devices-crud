@@ -1,4 +1,4 @@
-.common {
+.button {
   display: inline-flex;
   padding: 0.450rem 1.225rem;
   border-radius: var(--border-radius-md);
@@ -12,8 +12,12 @@
   cursor: pointer;
   transition: 0.2s;
 }
-.common:active {
+.button:active {
   background: var(--primary-color-lighter);
+}
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .error {
