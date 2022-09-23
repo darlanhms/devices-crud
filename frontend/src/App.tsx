@@ -1,24 +1,31 @@
-import Button from './components/Button';
-import Input from './components/Input';
-import { VStack } from './components/Stack';
+import Table from './components/Table';
 
 const App: React.FC = () => {
   return (
-    <VStack spacing={3}>
-      <Input label="Nome" />
-      <Input placeholder="Simple input" helperText="Nome é obrigatório" error />
-      <Input placeholder="Simple input" helperText="Nome é obrigatório" />
-      <Input placeholder="Simple input" />
-      <div>
-        <Button>Normal button</Button>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: '700px' }}>
+        <Table.Container>
+          <Table>
+            <Table.Head>
+              <Table.Row>
+                <Table.Th>Nome</Table.Th>
+                <Table.Th>Serial</Table.Th>
+                <Table.Th>Mac Address</Table.Th>
+                <Table.Th>Tipo</Table.Th>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              <Table.Row>
+                <Table.Td>Câmera da sala</Table.Td>
+                <Table.Td>asjkdfj192839asda</Table.Td>
+                <Table.Td>09-A8-34-23-12</Table.Td>
+                <Table.Td>Câmera</Table.Td>
+              </Table.Row>
+            </Table.Body>
+          </Table>
+        </Table.Container>
       </div>
-      <div>
-        <Button variant="error">Error button</Button>
-      </div>
-      <div>
-        <Button variant="success">Success button</Button>
-      </div>
-    </VStack>
+    </div>
   );
 };
 
