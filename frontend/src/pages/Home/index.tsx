@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
+import PageTitle from '../../components/PageTitle';
 import { VStack } from '../../components/Stack';
 import Table from '../../components/Table';
 import styles from './styles.module.css';
@@ -11,7 +12,7 @@ const Home: React.FC = () => {
   return (
     <Container className={styles.container}>
       <VStack spacing={2}>
-        <h3 className={styles.title}>Dispositivos eletrônicos</h3>
+        <PageTitle>Dispositivos eletrônicos</PageTitle>
         <div className={styles.buttonsContainer}>
           <div className={styles.actionButtons}>
             <Button disabled>Editar</Button>
