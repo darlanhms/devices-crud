@@ -14,6 +14,7 @@ import {
   DEFAULT_FORMAT_CHAR,
   DEFAULT_MASK_CHAR,
 } from '../../utils/mask';
+import noop from '../../utils/noop';
 import { isNumber } from '../../utils/validations';
 import Input, { InputProps } from '../Input';
 
@@ -37,14 +38,14 @@ export interface InputMaskProps extends AvailableInputProps {
    * default: {@link DEFAULT_MASK_CHAR}
    */
   maskChar?: string;
-  onChange(value: string): void;
+  onChange?(value: string): void;
 }
 
 const InputMask: React.FC<InputMaskProps> = ({
   format,
   maskChar = DEFAULT_MASK_CHAR,
   formatChar = DEFAULT_FORMAT_CHAR,
-  onChange,
+  onChange = noop,
   ...rest
 }) => {
   const maskIndexes = mapMaskCharIndexes(format, formatChar);
