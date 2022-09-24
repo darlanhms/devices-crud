@@ -16,9 +16,9 @@ import {
 } from '../../utils/mask';
 import noop from '../../utils/noop';
 import { isNumber } from '../../utils/validations';
-import Input, { InputProps } from '../Input';
+import FormInput, { FormInputProps } from '../FormInput';
 
-type AvailableInputProps = Omit<InputProps, 'value' | 'onChange' | 'onKeyDown' | 'onBlur'>;
+type AvailableInputProps = Omit<FormInputProps, 'value' | 'onChange' | 'onKeyDown' | 'onBlur'>;
 
 export interface InputMaskProps extends AvailableInputProps {
   /**
@@ -134,7 +134,7 @@ const InputMask: React.FC<InputMaskProps> = ({
     }
   };
 
-  return <Input {...rest} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} />;
+  return <FormInput {...rest} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} />;
 };
 
 export default InputMask;

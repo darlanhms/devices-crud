@@ -3,7 +3,7 @@ import FormHelperText, { FormHelperTextProps } from '../FormHelperText';
 import FormLabel, { FormLabelProps } from '../FormLabel';
 import Input, { InputProps } from '../Input';
 
-interface FormInputProps extends InputProps {
+export interface FormInputProps extends InputProps {
   label?: string;
   helperText?: string;
   controlProps?: FormControlProps;
