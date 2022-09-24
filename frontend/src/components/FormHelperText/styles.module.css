@@ -1,0 +1,8 @@
+.helperText {
+  margin-left: 2px;
+  margin-top: 3px;
+  font-size: var(--font-size-sm);
+}
+.helperText.error {
+  color: var(--error-color);
+}
