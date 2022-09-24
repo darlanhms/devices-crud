@@ -1,5 +1,7 @@
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { joiResolver } from '@hookform/resolvers/joi';
+
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import FormControl from '../../components/FormControl';
@@ -10,6 +12,7 @@ import InputMask from '../../components/InputMask';
 import PageTitle from '../../components/PageTitle';
 import Radio from '../../components/Radio';
 import { VStack } from '../../components/Stack';
+import deviceSchema from '../../schemas/deviceSchema';
 
 import styles from './styles.module.css';
 
@@ -20,6 +23,7 @@ const NewDevicePage: React.FC = () => {
     control,
     formState: { errors },
   } = useForm({
+    resolver: joiResolver(deviceSchema),
     defaultValues: {
       name: '',
       serial: '',
@@ -61,7 +65,10 @@ const NewDevicePage: React.FC = () => {
                 label="Mac Address"
                 format="##-##-##-##-##-##"
                 fullWidth
+                error={!!errors.macAddress}
+                helperText={errors.macAddress?.message}
                 onChangeValue={onChange}
+                onChange={onChange}
                 {...rest}
               />
             )}
@@ -73,8 +80,8 @@ const NewDevicePage: React.FC = () => {
               <Radio label="Sensor" value="sensor" {...register('type')} />
               <Radio label="Controle remoto" value="remoteControl" {...register('type')} />
             </VStack>
+            {errors.type && <FormHelperText error>{errors.type.message}</FormHelperText>}
           </FormControl>
-          {errors.type && <FormHelperText error>{errors.type.message}</FormHelperText>}
         </VStack>
         <div className={styles.submitButtons}>
           <Button variant="error" onClick={() => navigate('/')}>
