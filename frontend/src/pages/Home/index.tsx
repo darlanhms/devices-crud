@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import { VStack } from '../../components/Stack';
 import Table from '../../components/Table';
 import styles from './styles.module.css';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <VStack spacing={2} className={styles.container}>
       <h3 className={styles.title}>Dispositivos eletrônicos</h3>
@@ -16,7 +19,9 @@ const Home: React.FC = () => {
         </div>
         <div style={{ flex: 1 }} />
         <div>
-          <Button variant="success">Adicionar</Button>
+          <Button variant="success" onClick={() => navigate('/new')}>
+            Adicionar
+          </Button>
         </div>
       </div>
       <Table.Container>

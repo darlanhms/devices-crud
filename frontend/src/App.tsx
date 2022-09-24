@@ -1,13 +1,7 @@
-import InputMask from './components/InputMask';
-// import Home from './pages/Home';
+import AppRouter from './routes';
 
 const App: React.FC = () => {
-  // return <Home />;
-  return (
-    <div style={{ padding: '200px' }}>
-      <InputMask format="(##) ####-####" />
-    </div>
-  );
+  return <AppRouter />;
 };
 
 export default App;
