@@ -15,9 +15,11 @@ import {
   DEFAULT_MASK_CHAR,
 } from '../../utils/mask';
 import { isNumber } from '../../utils/validations';
-import Input from '../Input';
+import Input, { InputProps } from '../Input';
 
-export interface InputMaskProps {
+type AvailableInputProps = Omit<InputProps, 'value' | 'onChange' | 'onKeyDown' | 'onBlur'>;
+
+export interface InputMaskProps extends AvailableInputProps {
   /**
    * Formatted string using `#` (or `formatChar` value) where input will replace with characters
    * @example "(##) ####-####"
@@ -35,12 +37,15 @@ export interface InputMaskProps {
    * default: {@link DEFAULT_MASK_CHAR}
    */
   maskChar?: string;
+  onChange(value: string): void;
 }
 
 const InputMask: React.FC<InputMaskProps> = ({
   format,
   maskChar = DEFAULT_MASK_CHAR,
   formatChar = DEFAULT_FORMAT_CHAR,
+  onChange,
+  ...rest
 }) => {
   const maskIndexes = mapMaskCharIndexes(format, formatChar);
   const maskStr = replaceFormatChars(format, formatChar, maskChar);
@@ -94,6 +99,7 @@ const InputMask: React.FC<InputMaskProps> = ({
       e.preventDefault();
 
       target.value = applyCharToMask(target.value, key, selectionEnd, maskIndexes);
+      onChange(target.value);
 
       const nextIndex = nextMaskCharIndex(selectionEnd, maskIndexes, target.value, maskChar);
 
@@ -109,7 +115,7 @@ const InputMask: React.FC<InputMaskProps> = ({
 
         if (isNumber(prevIndex)) {
           target.value = applyMaskToChar(target.value, prevIndex, maskChar, maskIndexes);
-
+          onChange(target.value);
           changeInputSelection(target, prevIndex);
         }
       } else {
@@ -119,7 +125,7 @@ const InputMask: React.FC<InputMaskProps> = ({
 
           if (isNumber(prevIndex)) {
             target.value = applyMaskToChar(target.value, prevIndex, maskChar, maskIndexes);
-
+            onChange(target.value);
             changeInputSelection(target, prevIndex);
           }
         }
@@ -127,7 +133,7 @@ const InputMask: React.FC<InputMaskProps> = ({
     }
   };
 
-  return <Input onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} />;
+  return <Input {...rest} onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} />;
 };
 
 export default InputMask;
