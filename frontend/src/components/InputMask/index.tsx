@@ -62,6 +62,18 @@ const InputMask: React.FC<InputMaskProps> = ({
     }, 0);
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { target } = e;
+
+    const maskMatches = target.value.match(new RegExp(maskChar, 'g'));
+    const formatMatches = format.match(new RegExp(formatChar, 'g'));
+
+    // if matches are equal it means that input is empty
+    if (formatMatches?.length === maskMatches?.length) {
+      target.value = '';
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const { selectionStart, selectionEnd } = target;
@@ -115,7 +127,7 @@ const InputMask: React.FC<InputMaskProps> = ({
     }
   };
 
-  return <Input onFocus={handleFocus} onKeyDown={handleKeyDown} />;
+  return <Input onFocus={handleFocus} onBlur={handleBlur} onKeyDown={handleKeyDown} />;
 };
 
 export default InputMask;
