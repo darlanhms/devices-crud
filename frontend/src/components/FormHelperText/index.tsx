@@ -2,15 +2,15 @@ import clsx from 'classnames';
 
 import styles from './styles.module.css';
 
-export interface FormHelperTextProps extends React.HTMLAttributes<HTMLLabelElement> {
+export interface FormHelperTextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   error?: boolean;
 }
 
 const FormHelperText: React.FC<FormHelperTextProps> = ({ children, className, error, ...rest }) => {
   return (
-    <label {...rest} className={clsx(styles.label, className, { [styles.error]: error })}>
+    <p {...rest} className={clsx(styles.helperText, className, { [styles.error]: error })}>
       {children}
-    </label>
+    </p>
   );
 };
 
