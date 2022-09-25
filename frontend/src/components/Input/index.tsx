@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import clsx from 'classnames';
 import styles from './styles.module.css';
 
@@ -13,15 +13,13 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   fullWidth?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ error, className, fullWidth, ...rest }, ref) => {
-    const inputClasses = clsx(styles.input, className, {
-      [styles.error]: error,
-      [styles.fullWidth]: fullWidth,
-    });
+const Input = forwardRef<HTMLInputElement, InputProps>(({ error, className, fullWidth, ...rest }, ref) => {
+  const inputClasses = clsx(styles.input, className, {
+    [styles.error]: error,
+    [styles.fullWidth]: fullWidth,
+  });
 
-    return <input ref={ref} className={inputClasses} {...rest} />;
-  },
-);
+  return <input ref={ref} className={inputClasses} {...rest} />;
+});
 
 export default Input;

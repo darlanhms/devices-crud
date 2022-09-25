@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   applyCharToMask,
   applyMaskToChar,
@@ -41,7 +41,7 @@ export interface InputMaskProps extends AvailableInputProps {
   onChangeValue?(value: string): void;
 }
 
-const InputMask: React.FC<InputMaskProps> = React.forwardRef<HTMLInputElement, InputMaskProps>(
+const InputMask: React.FC<InputMaskProps> = forwardRef<HTMLInputElement, InputMaskProps>(
   (
     { format, maskChar = DEFAULT_MASK_CHAR, formatChar = DEFAULT_FORMAT_CHAR, onChangeValue = noop, ...rest },
     ref,

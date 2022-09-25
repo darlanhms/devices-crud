@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import clsx from 'classnames';
 import { HStack } from '../Stack';
 import styles from './styles.module.css';
@@ -7,7 +7,7 @@ export interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> 
   label?: string;
 }
 
-const Radio = React.forwardRef<HTMLInputElement, RadioProps>(({ label, className, ...rest }, ref) => {
+const Radio = forwardRef<HTMLInputElement, RadioProps>(({ label, className, ...rest }, ref) => {
   return (
     <label>
       <HStack spacing={0.5}>

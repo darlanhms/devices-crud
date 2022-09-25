@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import FormControl, { FormControlProps } from '../FormControl';
 import FormHelperText, { FormHelperTextProps } from '../FormHelperText';
 import FormLabel, { FormLabelProps } from '../FormLabel';
@@ -13,7 +13,7 @@ export interface FormInputProps extends InputProps {
   helperTextProps?: FormHelperTextProps;
 }
 
-const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
+const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ({ error, label, helperText, controlProps, labelProps, helperTextProps, ...rest }, ref) => {
     return (
       <FormControl {...controlProps}>
