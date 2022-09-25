@@ -39,7 +39,8 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-useless-constructor': 'off',
-    'class-methods-use-this': 'off'
+    'class-methods-use-this': 'off',
+    'no-alert': 'off',
   },
   settings: {
     'import/resolver': {

@@ -15,6 +15,7 @@ import { VStack } from '../../components/Stack';
 import deviceSchema from '../../schemas/deviceSchema';
 
 import styles from './styles.module.css';
+import createDevice from '../../lib/createDevice';
 
 const NewDevicePage: React.FC = () => {
   const {
@@ -34,8 +35,18 @@ const NewDevicePage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    console.info(data);
+  const onSubmit = async (data: any) => {
+    try {
+      await createDevice(data);
+
+      navigate('/');
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(`Erro ao cadastrar dispositivo: ${error.message}`);
+      } else {
+        console.error(error);
+      }
+    }
   };
 
   return (
