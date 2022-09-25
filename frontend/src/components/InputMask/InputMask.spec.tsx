@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InputMask from '.';
 import { replaceFormatChars } from '../../utils/mask';
@@ -20,9 +20,8 @@ describe('Input mask', () => {
     const inputElement = screen.getByRole('textbox');
 
     await user.click(inputElement);
-    await waitFor(() => screen.getByDisplayValue(finalMask));
 
-    expect(screen.getByDisplayValue(finalMask)).toBeInTheDocument();
+    expect(await screen.findByDisplayValue(finalMask)).toBeInTheDocument();
   });
 
   it('applies mask to valid format slots when the user types', async () => {
@@ -35,9 +34,8 @@ describe('Input mask', () => {
     await user.type(inputElement, '489954');
 
     const finalFormattedValue = '(48) 9954-____';
-    await waitFor(() => screen.getByDisplayValue(finalFormattedValue));
 
-    expect(screen.getByDisplayValue(finalFormattedValue)).toBeInTheDocument();
+    expect(await screen.findByDisplayValue(finalFormattedValue)).toBeInTheDocument();
   });
 
   it('removes mask value on blur if nothing was typed on input', async () => {
@@ -52,9 +50,7 @@ describe('Input mask', () => {
     // remove focus
     await user.click(inputElement.parentElement as HTMLElement);
 
-    await waitFor(() => screen.getByDisplayValue(''));
-
-    const clearInput = screen.getByDisplayValue('');
+    const clearInput = await screen.findByDisplayValue('');
 
     expect(clearInput).toBeInTheDocument();
     expect(clearInput.tagName).toBe('INPUT');
@@ -72,8 +68,7 @@ describe('Input mask', () => {
 
     // it will remove 8 and 4 from above string
     const finalFormattedValue = '(48) 995_-____';
-    await waitFor(() => screen.getByDisplayValue(finalFormattedValue));
 
-    expect(screen.getByDisplayValue(finalFormattedValue)).toBeInTheDocument();
+    expect(await screen.findByDisplayValue(finalFormattedValue)).toBeInTheDocument();
   });
 });

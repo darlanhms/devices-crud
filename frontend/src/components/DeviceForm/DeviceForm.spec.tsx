@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { faker } from '@faker-js/faker';
@@ -69,12 +69,10 @@ describe('Device form', () => {
 
     await user.click(submitButton);
 
-    await waitFor(() => screen.getByText(/Nome é obrigatório/i));
-
-    expect(screen.getByText(/Nome é obrigatório/i)).toBeInTheDocument();
-    expect(screen.getByText(/Serial é obrigatório/i)).toBeInTheDocument();
-    expect(screen.getByText(/Mac address é obrigatório/i)).toBeInTheDocument();
-    expect(screen.getByText(/Tipo é obrigatório/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Nome é obrigatório/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Serial é obrigatório/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Mac address é obrigatório/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Tipo é obrigatório/i)).toBeInTheDocument();
 
     expect(onSubmit).not.toHaveBeenCalled();
   });
