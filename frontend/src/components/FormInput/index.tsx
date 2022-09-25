@@ -14,11 +14,13 @@ export interface FormInputProps extends InputProps {
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-  ({ error, label, helperText, controlProps, labelProps, helperTextProps, ...rest }, ref) => {
+  ({ error, label, helperText, controlProps, labelProps, helperTextProps, name, ...rest }, ref) => {
+    const labelName = name ? name + '-label' : undefined;
+
     return (
       <FormControl {...controlProps}>
-        {label && <FormLabel {...labelProps}>{label}</FormLabel>}
-        <Input ref={ref} {...rest} error={error} />
+        {label && <FormLabel id={labelName} {...labelProps}>{label}</FormLabel>}
+        <Input {...rest} aria-labelledby={labelName} ref={ref} name={name} error={error} />
         {helperText && (
           <FormHelperText {...helperTextProps} error={error}>
             {helperText}

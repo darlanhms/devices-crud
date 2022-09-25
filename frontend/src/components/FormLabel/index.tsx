@@ -2,7 +2,7 @@ import clsx from 'classnames';
 
 import styles from './styles.module.css';
 
-export type FormLabelProps = React.HTMLAttributes<HTMLLabelElement>;
+export type FormLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
 const FormLabel: React.FC<FormLabelProps> = ({ children, className, ...rest }) => {
   return (
