@@ -3,9 +3,8 @@ import { Config } from '@jest/types';
 const config: Config.InitialOptions = {
   clearMocks: true,
   testEnvironment: 'jsdom',
-  preset: 'ts-jest',
   transform: {
-    '^.+.(ts|tsx)$': 'ts-jest',
+    '^.+.(ts|tsx)$': 'babel-jest',
     '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
   },
   roots: ['<rootDir>/src'],
