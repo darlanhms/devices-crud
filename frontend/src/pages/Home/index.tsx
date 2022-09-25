@@ -1,13 +1,42 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import PageTitle from '../../components/PageTitle';
 import { VStack } from '../../components/Stack';
 import Table from '../../components/Table';
+import listDevices from '../../lib/listDevices';
+import Device, { DeviceType } from '../../types/device';
 import styles from './styles.module.css';
+
+const getTypeLabel = (type: DeviceType) => {
+  switch (type) {
+    case 'camera':
+      return 'Câmera';
+    case 'remoteControl':
+      return 'Controle remoto';
+    case 'sensor':
+      return 'Sensor';
+    default:
+      throw new Error(`Dispositivo com tipo inesperado ${type}`);
+  }
+};
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [devices, setDevices] = useState<Array<Device>>([]);
+
+  useEffect(() => {
+    listDevices()
+      .then(newDevices => setDevices(newDevices))
+      .catch(error => {
+        if (error instanceof Error) {
+          alert(`Erro ao listar dispositivos: ${error.message}`);
+        } else {
+          console.error(error);
+        }
+      });
+  }, []);
 
   return (
     <Container className={styles.container}>
@@ -38,30 +67,14 @@ const Home: React.FC = () => {
               </Table.Row>
             </Table.Head>
             <Table.Body>
-              <Table.Row>
-                <Table.Td>Câmera da sala</Table.Td>
-                <Table.Td>asjkdfj192839asda</Table.Td>
-                <Table.Td>09-A8-34-23-12</Table.Td>
-                <Table.Td>Câmera</Table.Td>
-              </Table.Row>
-              <Table.Row>
-                <Table.Td>Câmera da sala</Table.Td>
-                <Table.Td>asjkdfj192839asda</Table.Td>
-                <Table.Td>09-A8-34-23-12</Table.Td>
-                <Table.Td>Câmera</Table.Td>
-              </Table.Row>
-              <Table.Row>
-                <Table.Td>Câmera da sala</Table.Td>
-                <Table.Td>asjkdfj192839asda</Table.Td>
-                <Table.Td>09-A8-34-23-12</Table.Td>
-                <Table.Td>Câmera</Table.Td>
-              </Table.Row>
-              <Table.Row>
-                <Table.Td>Câmera da sala</Table.Td>
-                <Table.Td>asjkdfj192839asda</Table.Td>
-                <Table.Td>09-A8-34-23-12</Table.Td>
-                <Table.Td>Câmera</Table.Td>
-              </Table.Row>
+              {devices.map(device => (
+                <Table.Row key={device.id}>
+                  <Table.Td>{device.name}</Table.Td>
+                  <Table.Td>{device.serial}</Table.Td>
+                  <Table.Td>{device.macAddress}</Table.Td>
+                  <Table.Td>{getTypeLabel(device.type)}</Table.Td>
+                </Table.Row>
+              ))}
             </Table.Body>
           </Table>
         </Table.Container>

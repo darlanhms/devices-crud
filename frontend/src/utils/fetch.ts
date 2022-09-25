@@ -31,6 +31,23 @@ class FetchHelper {
 
     return jsonResponse;
   }
+
+  async get<T>(path: string): Promise<T> {
+    const response = await fetch(this.getUrl(path), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const jsonResponse = await response.json();
+
+    if (!this.isValidStatus(response.status)) {
+      throw new Error(jsonResponse.error || jsonResponse);
+    }
+
+    return jsonResponse;
+  }
 }
 
 const fetchHelper = new FetchHelper();
