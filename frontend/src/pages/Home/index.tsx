@@ -10,7 +10,6 @@ import listDevices from '../../lib/listDevices';
 import Device, { DeviceType } from '../../types/device';
 import styles from './styles.module.css';
 import Modal from '../../components/Modal';
-import noop from '../../utils/noop';
 import deleteDevice from '../../lib/deleteDevice';
 
 const getTypeLabel = (type: DeviceType) => {
