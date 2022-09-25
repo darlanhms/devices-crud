@@ -66,6 +66,23 @@ class FetchHelper {
 
     return jsonResponse;
   }
+
+  async delete<T>(path: string): Promise<T> {
+    const response = await fetch(this.getUrl(path), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const jsonResponse = await response.json();
+
+    if (!this.isValidStatus(response.status)) {
+      throw new Error(jsonResponse.error || jsonResponse);
+    }
+
+    return jsonResponse;
+  }
 }
 
 const fetchHelper = new FetchHelper();

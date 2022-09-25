@@ -11,6 +11,7 @@ import Device, { DeviceType } from '../../types/device';
 import styles from './styles.module.css';
 import Modal from '../../components/Modal';
 import noop from '../../utils/noop';
+import deleteDevice from '../../lib/deleteDevice';
 
 const getTypeLabel = (type: DeviceType) => {
   switch (type) {
@@ -42,6 +43,26 @@ const Home: React.FC = () => {
         }
       });
   }, []);
+
+  const handleDelete = async () => {
+    if (!selected) {
+      return;
+    }
+
+    try {
+      await deleteDevice(selected);
+
+      setDevices(devices.filter(device => device.id !== selected));
+      setSelected(undefined);
+      setOpen(false);
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(`Erro ao listar dispositivos: ${error.message}`);
+      } else {
+        console.error(error);
+      }
+    }
+  };
 
   const handleSelect = useCallback((id: string) => {
     setSelected(oldSelected => {
@@ -115,13 +136,15 @@ const Home: React.FC = () => {
           <Modal.Title>Confirmar exclusão</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Tem certeza que deseja excluir o dispositivo eletrônico <b>{selectedDevice?.name}</b>
+          Tem certeza que deseja excluir o dispositivo eletrônico <b>{selectedDevice?.name}</b>?
         </Modal.Body>
         <Modal.Footer className={styles.modalFooter}>
           <Button variant="error" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="success">Confirmar</Button>
+          <Button variant="success" onClick={handleDelete}>
+            Confirmar
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>
