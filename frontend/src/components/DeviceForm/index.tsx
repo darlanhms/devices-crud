@@ -49,7 +49,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
   }, [initialData]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form data-testid="device-form" onSubmit={handleSubmit(onSubmit)}>
       <VStack spacing={2} className={styles.formContainer}>
         <FormInput
           label="Nome"
