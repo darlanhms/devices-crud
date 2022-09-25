@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import clsx from 'classnames';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import PageTitle from '../../components/PageTitle';
@@ -25,6 +26,7 @@ const getTypeLabel = (type: DeviceType) => {
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [devices, setDevices] = useState<Array<Device>>([]);
+  const [selected, setSelected] = useState<string>();
 
   useEffect(() => {
     listDevices()
@@ -38,14 +40,26 @@ const Home: React.FC = () => {
       });
   }, []);
 
+  const handleSelect = useCallback((id: string) => {
+    setSelected(oldSelected => {
+      if (id === oldSelected) {
+        return undefined;
+      }
+
+      return id;
+    });
+  }, []);
+
   return (
     <Container className={styles.container}>
       <VStack spacing={2}>
         <PageTitle>Dispositivos eletrônicos</PageTitle>
         <div className={styles.buttonsContainer}>
           <div className={styles.actionButtons}>
-            <Button disabled>Editar</Button>
-            <Button variant="error" disabled>
+            <Button disabled={!selected} onClick={() => navigate(`/${selected}`)}>
+              Editar
+            </Button>
+            <Button variant="error" disabled={!selected}>
               Excluir
             </Button>
           </div>
@@ -68,7 +82,13 @@ const Home: React.FC = () => {
             </Table.Head>
             <Table.Body>
               {devices.map(device => (
-                <Table.Row key={device.id}>
+                <Table.Row
+                  key={device.id}
+                  onClick={() => handleSelect(device.id)}
+                  className={clsx({
+                    [styles.selected]: device.id === selected,
+                  })}
+                >
                   <Table.Td>{device.name}</Table.Td>
                   <Table.Td>{device.serial}</Table.Td>
                   <Table.Td>{device.macAddress}</Table.Td>

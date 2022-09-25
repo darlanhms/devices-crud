@@ -29,30 +29,42 @@ Table.Container = ({ children, className, ...rest }) => {
   );
 };
 
-Table.Row = ({ children }) => {
-  return <tr>{children}</tr>;
+Table.Row = ({ children, className, ...rest }) => {
+  return (
+    <tr {...rest} className={clsx(className, styles.row)}>
+      {children}
+    </tr>
+  );
 };
 
 /**
  * Head components
  */
-Table.Head = ({ children }) => {
-  return <thead>{children}</thead>;
+Table.Head = ({ children, ...rest }) => {
+  return <thead {...rest}>{children}</thead>;
 };
 
-Table.Th = ({ children }) => {
-  return <th className={clsx(styles.th, styles.cell)}>{children}</th>;
+Table.Th = ({ children, className, ...rest }) => {
+  return (
+    <th {...rest} className={clsx(styles.th, styles.cell, className)}>
+      {children}
+    </th>
+  );
 };
 
 /**
  * Body components
  */
-Table.Body = ({ children }) => {
-  return <tbody>{children}</tbody>;
+Table.Body = ({ children, ...rest }) => {
+  return <tbody {...rest}>{children}</tbody>;
 };
 
-Table.Td = ({ children }) => {
-  return <td className={clsx(styles.td, styles.cell)}>{children}</td>;
+Table.Td = ({ children, className, ...rest }) => {
+  return (
+    <td {...rest} className={clsx(styles.td, styles.cell, className)}>
+      {children}
+    </td>
+  );
 };
 
 export default Table;

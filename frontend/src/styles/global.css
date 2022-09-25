@@ -17,6 +17,7 @@
   --success-color-darker: #14611c;
   --border-color: #E2E8F0;
   --border-radius-md: 0.5rem;
+  --selected-color: #E2E8F0
 }
 
 * {
