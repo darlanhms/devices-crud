@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'classnames';
 import Button from '../../components/Button';
@@ -9,6 +9,8 @@ import Table from '../../components/Table';
 import listDevices from '../../lib/listDevices';
 import Device, { DeviceType } from '../../types/device';
 import styles from './styles.module.css';
+import Modal from '../../components/Modal';
+import noop from '../../utils/noop';
 
 const getTypeLabel = (type: DeviceType) => {
   switch (type) {
@@ -27,6 +29,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [devices, setDevices] = useState<Array<Device>>([]);
   const [selected, setSelected] = useState<string>();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     listDevices()
@@ -50,6 +53,14 @@ const Home: React.FC = () => {
     });
   }, []);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const selectedDevice = useMemo(() => {
+    return devices.find(device => device.id === selected);
+  }, [selected]);
+
   return (
     <Container className={styles.container}>
       <VStack spacing={2}>
@@ -59,7 +70,7 @@ const Home: React.FC = () => {
             <Button disabled={!selected} onClick={() => navigate(`/${selected}`)}>
               Editar
             </Button>
-            <Button variant="error" disabled={!selected}>
+            <Button variant="error" disabled={!selected} onClick={() => setOpen(true)}>
               Excluir
             </Button>
           </div>
@@ -99,6 +110,20 @@ const Home: React.FC = () => {
           </Table>
         </Table.Container>
       </VStack>
+      <Modal open={open} onClose={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Confirmar exclusão</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Tem certeza que deseja excluir o dispositivo eletrônico <b>{selectedDevice?.name}</b>
+        </Modal.Body>
+        <Modal.Footer className={styles.modalFooter}>
+          <Button variant="error" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button variant="success">Confirmar</Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

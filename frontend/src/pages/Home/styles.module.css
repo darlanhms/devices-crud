@@ -16,3 +16,7 @@
 .selected {
   background-color: var(--selected-color);
 }
+
+.modalFooter {
+  gap: 5px;
+}

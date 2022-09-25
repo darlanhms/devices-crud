@@ -1,7 +1,7 @@
 import clsx from 'classnames';
 import styles from './styles.module.css';
 
-export type ButtonVariant = 'primary' | 'error' | 'success';
+export type ButtonVariant = 'primary' | 'error' | 'success' | 'transparent';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -9,13 +9,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const Button: React.FC<ButtonProps> = ({ variant = 'primary', children, className, ...rest }) => {
   return (
-    <button
-      {...rest}
-      className={clsx(styles.button, className, {
-        [styles.error]: variant === 'error',
-        [styles.success]: variant === 'success',
-      })}
-    >
+    <button {...rest} className={clsx(styles.button, className, styles[variant])}>
       {children}
     </button>
   );

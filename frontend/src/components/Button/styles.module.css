@@ -33,3 +33,11 @@
 .success:active {
   background: var(--success-color-darker);
 }
+
+.transparent {
+  background: transparent;
+  color: #4A5568;
+}
+.transparent:active {
+  background: #e5e5e5;
+}
