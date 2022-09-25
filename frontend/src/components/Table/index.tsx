@@ -1,10 +1,10 @@
 /* eslint-disable react/display-name */
-import { FC, PropsWithChildren, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes } from 'react';
 import clsx from 'classnames';
 
 import styles from './styles.module.css';
 
-export interface TableComponent extends FC<PropsWithChildren> {
+export interface TableComponent extends FC<HTMLAttributes<HTMLTableElement>> {
   Container: FC<HTMLAttributes<HTMLDivElement>>;
   Body: FC<HTMLAttributes<HTMLDivElement>>;
   Head: FC<HTMLAttributes<HTMLDivElement>>;
@@ -13,9 +13,9 @@ export interface TableComponent extends FC<PropsWithChildren> {
   Td: FC<HTMLAttributes<HTMLDivElement>>;
 }
 
-const Table: TableComponent = ({ children, ...rest }) => {
+const Table: TableComponent = ({ children, className, ...rest }) => {
   return (
-    <table className={styles.table} {...rest}>
+    <table {...rest} data-testid="table" className={clsx(styles.table, className)}>
       {children}
     </table>
   );
@@ -23,7 +23,7 @@ const Table: TableComponent = ({ children, ...rest }) => {
 
 Table.Container = ({ children, className, ...rest }) => {
   return (
-    <div className={clsx(styles.container, className)} {...rest}>
+    <div {...rest} data-testid="table-container" className={clsx(styles.container, className)}>
       {children}
     </div>
   );
@@ -31,7 +31,7 @@ Table.Container = ({ children, className, ...rest }) => {
 
 Table.Row = ({ children, className, ...rest }) => {
   return (
-    <tr {...rest} className={clsx(className, styles.row)}>
+    <tr {...rest} data-testid="table-row" className={clsx(className, styles.row)}>
       {children}
     </tr>
   );
@@ -41,12 +41,16 @@ Table.Row = ({ children, className, ...rest }) => {
  * Head components
  */
 Table.Head = ({ children, ...rest }) => {
-  return <thead {...rest}>{children}</thead>;
+  return (
+    <thead {...rest} data-testid="table-head">
+      {children}
+    </thead>
+  );
 };
 
 Table.Th = ({ children, className, ...rest }) => {
   return (
-    <th {...rest} className={clsx(styles.th, styles.cell, className)}>
+    <th {...rest} data-testid="table-th" className={clsx(styles.th, styles.cell, className)}>
       {children}
     </th>
   );
@@ -56,12 +60,16 @@ Table.Th = ({ children, className, ...rest }) => {
  * Body components
  */
 Table.Body = ({ children, ...rest }) => {
-  return <tbody {...rest}>{children}</tbody>;
+  return (
+    <tbody {...rest} data-testid="table-body">
+      {children}
+    </tbody>
+  );
 };
 
 Table.Td = ({ children, className, ...rest }) => {
   return (
-    <td {...rest} className={clsx(styles.td, styles.cell, className)}>
+    <td {...rest} data-testid="table-td" className={clsx(styles.td, styles.cell, className)}>
       {children}
     </td>
   );

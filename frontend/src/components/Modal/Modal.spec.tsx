@@ -17,21 +17,13 @@ describe('Modal', () => {
       </Modal>,
     );
 
-    const modalElement = screen.getByTestId('modal');
-    const modalOverlayElement = screen.getByTestId('modal-overlay');
-    const modalHeaderElement = screen.getByTestId('modal-header');
-    const modalCloseButtonElement = screen.getByTestId('modal-close-button');
-    const modalBodyElement = screen.getByText(/modal body/i);
-    const modalTitleElement = screen.getByText(/modal title/i);
-    const modalFooterElement = screen.getByText(/modal footer/i);
-
-    expect(modalElement).toBeInTheDocument();
-    expect(modalOverlayElement).toBeInTheDocument();
-    expect(modalHeaderElement).toBeInTheDocument();
-    expect(modalCloseButtonElement).toBeInTheDocument();
-    expect(modalBodyElement).toBeInTheDocument();
-    expect(modalTitleElement).toBeInTheDocument();
-    expect(modalFooterElement).toBeInTheDocument();
+    expect(screen.getByTestId('modal')).toBeInTheDocument();
+    expect(screen.getByTestId('modal-overlay')).toBeInTheDocument();
+    expect(screen.getByTestId('modal-header')).toBeInTheDocument();
+    expect(screen.getByTestId('modal-close-button')).toBeInTheDocument();
+    expect(screen.getByText(/modal body/i)).toBeInTheDocument();
+    expect(screen.getByText(/modal title/i)).toBeInTheDocument();
+    expect(screen.getByText(/modal footer/i)).toBeInTheDocument();
   });
 
   it('calls on close fn when close button is clicked', async () => {
