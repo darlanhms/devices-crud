@@ -24,8 +24,8 @@ const Modal: ModalComponent = ({ open, onClose, children, className, ...rest }) 
   if (open) {
     return (
       <ModalProvider onClose={onClose}>
-        <div className={styles.overlay}>
-          <div {...rest} className={clsx(styles.modal, className)}>
+        <div data-testid="modal-overlay" className={styles.overlay}>
+          <div {...rest} data-testid="modal" className={clsx(styles.modal, className)}>
             {children}
           </div>
         </div>

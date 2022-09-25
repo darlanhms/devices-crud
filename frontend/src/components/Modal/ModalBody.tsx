@@ -6,7 +6,7 @@ export type ModalBodyProps = React.HTMLAttributes<HTMLDivElement>;
 
 const ModalBody: React.FC<ModalBodyProps> = ({ children, className, ...rest }) => {
   return (
-    <div {...rest} className={clsx(className, styles.body)}>
+    <div {...rest} data-testid="modal-body" className={clsx(className, styles.body)}>
       {children}
     </div>
   );
