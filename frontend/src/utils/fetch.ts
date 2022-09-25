@@ -32,6 +32,24 @@ class FetchHelper {
     return jsonResponse;
   }
 
+  async put<T, R>(path: string, body?: T): Promise<R> {
+    const response = await fetch(this.getUrl(path), {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+
+    const jsonResponse = await response.json();
+
+    if (!this.isValidStatus(response.status)) {
+      throw new Error(jsonResponse.error || jsonResponse);
+    }
+
+    return jsonResponse;
+  }
+
   async get<T>(path: string): Promise<T> {
     const response = await fetch(this.getUrl(path), {
       method: 'GET',

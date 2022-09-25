@@ -7,3 +7,10 @@ export default interface Device {
   macAddress: string;
   type: DeviceType;
 }
+
+export interface SubmitDeviceData {
+  name: string;
+  serial: string;
+  macAddress: string;
+  type: DeviceType;
+}
