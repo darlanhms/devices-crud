@@ -5,6 +5,13 @@ import { faker } from '@faker-js/faker';
 import { SubmitDeviceData } from '../../types/device';
 import DeviceForm from './index';
 
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
 describe('Device form', () => {
   it('renders all inputs', () => {
     const onSubmit = jest.fn();
@@ -70,5 +77,41 @@ describe('Device form', () => {
     expect(screen.getByText(/Tipo é obrigatório/i)).toBeInTheDocument();
 
     expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it('set input values when initial data is supplied', () => {
+    const onSubmit = jest.fn();
+
+    const initialData: SubmitDeviceData = {
+      name: faker.name.firstName(),
+      macAddress: faker.internet.mac('-'),
+      serial: faker.datatype.uuid(),
+      type: 'camera',
+    };
+
+    render(<DeviceForm onSubmit={onSubmit} initialData={initialData} />, { wrapper: BrowserRouter });
+
+    expect(screen.getByDisplayValue(initialData.name)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(initialData.macAddress)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(initialData.serial)).toBeInTheDocument();
+
+    const cameraRadio = screen.getByRole('radio', { checked: true });
+
+    expect(cameraRadio).toBeInTheDocument();
+    expect(cameraRadio.closest('label')).toHaveTextContent('Câmera');
+  });
+
+  it('returns to home page when clicks on cancel button', async () => {
+    const user = userEvent.setup();
+    const onSubmit = jest.fn();
+
+    render(<DeviceForm onSubmit={onSubmit} />, { wrapper: BrowserRouter });
+
+    const cancelButton = screen.getByText(/cancelar/i);
+
+    await user.click(cancelButton);
+
+    expect(mockedUsedNavigate).toHaveBeenCalledTimes(1);
+    expect(mockedUsedNavigate).toHaveBeenCalledWith('/');
   });
 });
