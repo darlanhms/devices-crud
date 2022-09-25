@@ -59,4 +59,21 @@ describe('Input mask', () => {
     expect(clearInput).toBeInTheDocument();
     expect(clearInput.tagName).toBe('INPUT');
   });
+
+  it('replaces only mask slots when user hits backspace', async () => {
+    const user = userEvent.setup();
+
+    render(<InputMask format={format} formatChar={formatChar} maskChar={maskChar} />);
+
+    const inputElement = screen.getByRole('textbox');
+
+    await user.type(inputElement, '4899548');
+    await user.keyboard('[Backspace][Backspace]');
+
+    // it will remove 8 and 4 from above string
+    const finalFormattedValue = '(48) 995_-____';
+    await waitFor(() => screen.getByDisplayValue(finalFormattedValue));
+
+    expect(screen.getByDisplayValue(finalFormattedValue)).toBeInTheDocument();
+  });
 });
