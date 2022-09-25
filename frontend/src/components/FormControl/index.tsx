@@ -6,7 +6,7 @@ export type FormControlProps = React.HTMLAttributes<HTMLDivElement>;
 
 const FormControl: React.FC<FormControlProps> = ({ children, className, ...rest }) => {
   return (
-    <div {...rest} className={clsx(styles.formControl, className)}>
+    <div data-testid="formControl" {...rest} className={clsx(styles.formControl, className)}>
       {children}
     </div>
   );

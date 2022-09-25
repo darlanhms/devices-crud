@@ -6,7 +6,7 @@ type ContainerProps = React.HTMLAttributes<HTMLDivElement>;
 
 const Container: React.FC<ContainerProps> = ({ children, className, ...rest }) => {
   return (
-    <div {...rest} className={clsx(styles.container, className)}>
+    <div data-testid="container" {...rest} className={clsx(styles.container, className)}>
       {children}
     </div>
   );
