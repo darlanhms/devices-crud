@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View } from 'react-native';
 import FormInput from '../../components/FormInput';
+import InputMask from '../../components/InputMask';
 import styles from './styles';
 
 const Home: React.FC = () => {
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
         <FormInput label="Nome" error helperText="Nome é obrigatório" />
         <FormInput label="Serial" helperText="Nome é obrigatório" />
         <FormInput label="Mac address" />
+        <InputMask format="(##) ####-####" />
       </View>
     </SafeAreaView>
   );
