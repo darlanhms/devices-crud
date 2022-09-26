@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { SafeAreaView, Alert, FlatList } from 'react-native';
+import { SafeAreaView, Alert, FlatList, Text, View, Dimensions } from 'react-native';
+import ActionButton from '../../components/ActionButton';
 import DeviceActionsModal from '../../components/DeviceActionsModal';
 import DeviceCard from '../../components/DeviceCard';
 import listDevices from '../../lib/listDevices';
 import Device from '../../types/device';
 import noop from '../../utils/noop';
+import styles from './styles';
 
 const Home: React.FC = () => {
   const [devices, setDevices] = useState<Array<Device>>([]);
@@ -36,6 +38,11 @@ const Home: React.FC = () => {
         onDelete={noop}
         onEdit={noop}
       />
+      <View style={styles.buttonContainer}>
+        <ActionButton style={styles.addButton}>
+          <Text style={styles.buttonText}>+</Text>
+        </ActionButton>
+      </View>
     </SafeAreaView>
   );
 };
