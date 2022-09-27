@@ -21,9 +21,11 @@ jobs:
         with:
           node-version: 16
           cache: 'yarn'
+          
+      - run: cd mobile
 
       - name: Install deps
-        run: yarn --cwd="backend" --pure-lockfile
+        run: yarn --pure-lockfile
       
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
