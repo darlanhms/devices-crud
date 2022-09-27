@@ -31,10 +31,18 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   const selectedDevice = useMemo(() => {
     return devices.find(device => device.id === selected);
-  }, []);
+  }, [selected]);
 
   const handleNewDevice = () => {
     navigation.navigate('NewDevice');
+  };
+
+  const handleUpdateDevice = () => {
+    if (!selectedDevice) {
+      return;
+    }
+
+    navigation.navigate('UpdateDevice', { device: selectedDevice });
   };
 
   return (
@@ -48,7 +56,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         open={!!selected}
         onClose={() => setSelected(undefined)}
         onDelete={noop}
-        onEdit={noop}
+        onEdit={handleUpdateDevice}
       />
       <View style={styles.buttonContainer}>
         <View style={styles.addButton}>

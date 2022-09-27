@@ -1,5 +1,4 @@
-/* eslint-disable no-continue */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import noop from '../../utils/noop';
 import FormInput, { FormInputProps } from '../FormInput';
 
@@ -43,11 +42,15 @@ interface MaskMap {
  *
  * `mayBeReplaced` will be used by input impl to know where to put user typed values
  */
-export const mapMaskCharIndexes = (format: string, formatChar = DEFAULT_FORMAT_CHAR): Array<MaskMap> => {
+const mapMaskCharIndexes = (format: string, formatChar = DEFAULT_FORMAT_CHAR): Array<MaskMap> => {
   return format.split('').map(char => ({
     char,
     mayBeReplaced: Boolean(char.match(new RegExp(formatChar, 'i'))),
   }));
+};
+
+const onlyValidChars = (text: string) => {
+  return text.trim().replace(/[^a-z0-9]/gi, '');
 };
 
 /**
@@ -55,18 +58,24 @@ export const mapMaskCharIndexes = (format: string, formatChar = DEFAULT_FORMAT_C
  *
  * On the other hand, it is a much smaller implementation then web version
  */
-const InputMask: React.FC<InputMaskProps> = ({ format, formatChar, onChangeText = noop, ...rest }) => {
+const InputMask: React.FC<InputMaskProps> = ({
+  format,
+  formatChar,
+  onChangeText = noop,
+  value: implicitValue,
+  ...rest
+}) => {
   const [value, setValue] = useState<string>('');
   const maskMap = mapMaskCharIndexes(format, formatChar);
 
-  const getDisplayValue = () => {
+  const getDisplayValue = (inputValue: string) => {
     let result = '';
     let maskCharIndex = 0;
     let valueCharIndex = 0;
 
-    while (maskCharIndex < maskMap.length && valueCharIndex < value.length) {
+    while (maskCharIndex < maskMap.length && valueCharIndex < inputValue.length) {
       const currentSlot = maskMap[maskCharIndex];
-      const valueChar = value[valueCharIndex];
+      const valueChar = inputValue[valueCharIndex];
 
       if (currentSlot.mayBeReplaced) {
         result += valueChar;
@@ -80,13 +89,20 @@ const InputMask: React.FC<InputMaskProps> = ({ format, formatChar, onChangeText 
     return result;
   };
 
-  const handleChangeText = (text: string) => {
-    setValue(text.replace(/[^a-z0-9]/gi, ''));
+  useEffect(() => {
+    if (implicitValue) {
+      setValue(onlyValidChars(implicitValue));
+    }
+  }, [implicitValue]);
 
-    onChangeText(getDisplayValue());
+  const handleChangeText = (text: string) => {
+    const newValue = onlyValidChars(text);
+
+    setValue(newValue);
+    onChangeText(getDisplayValue(newValue));
   };
 
-  return <FormInput {...rest} onChangeText={handleChangeText} value={getDisplayValue()} />;
+  return <FormInput {...rest} onChangeText={handleChangeText} value={getDisplayValue(value)} />;
 };
 
 export default InputMask;

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Button, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useForm, Controller } from 'react-hook-form';
@@ -17,13 +18,15 @@ const FormControl: React.FC<React.PropsWithChildren> = ({ children }) => {
 
 interface DeviceFormProps {
   onSubmit(data: SubmitDeviceData): void;
+  initialData?: SubmitDeviceData;
 }
 
-const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit }) => {
+const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<SubmitDeviceData>({
     resolver: joiResolver(deviceSchema),
     defaultValues: {
@@ -33,6 +36,15 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit }) => {
       type: 'camera',
     },
   });
+
+  useEffect(() => {
+    if (initialData) {
+      setValue('name', initialData.name);
+      setValue('serial', initialData.serial);
+      setValue('macAddress', initialData.macAddress);
+      setValue('type', initialData.type);
+    }
+  }, [initialData]);
 
   return (
     <View style={styles.container}>
