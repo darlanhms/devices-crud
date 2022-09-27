@@ -7,7 +7,14 @@ export interface InputProps extends TextInputProps {
 }
 
 const Input = React.forwardRef<TextInput, InputProps>(({ style, error, ...rest }, ref) => {
-  return <TextInput ref={ref} {...rest} style={[style, styles.input, error ? styles.inputError : {}]} />;
+  return (
+    <TextInput
+      testID="input"
+      ref={ref}
+      {...rest}
+      style={[style, styles.input, error ? styles.inputError : {}]}
+    />
+  );
 });
 
 export default Input;

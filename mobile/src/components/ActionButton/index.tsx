@@ -3,7 +3,7 @@ import styles from './styles';
 
 const ActionButton: React.FC<TouchableNativeFeedbackProps> = ({ children, ...rest }) => {
   return (
-    <TouchableNativeFeedback {...rest}>
+    <TouchableNativeFeedback testID="action-button" {...rest}>
       <View style={styles.content}>{children}</View>
     </TouchableNativeFeedback>
   );
