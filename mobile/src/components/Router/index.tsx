@@ -1,9 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../../pages/Home';
+import NewDeviceScreen from '../../pages/New';
 import theme from '../../styles/theme';
 
 export type RouterParams = {
   Home: undefined;
+  NewDevice: undefined;
 };
 
 const Stack = createNativeStackNavigator<RouterParams>();
@@ -24,6 +26,13 @@ const Router: React.FC = () => {
         component={Home}
         options={{
           headerTitle: 'Dispositivos Eletrônicos',
+        }}
+      />
+      <Stack.Screen
+        name="NewDevice"
+        component={NewDeviceScreen}
+        options={{
+          headerTitle: 'Novo Dispositivo',
         }}
       />
     </Stack.Navigator>

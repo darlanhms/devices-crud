@@ -1,11 +1,11 @@
-import { TouchableHighlight, View, TouchableHighlightProps } from 'react-native';
+import { TouchableNativeFeedback, View, TouchableNativeFeedbackProps } from 'react-native';
 import styles from './styles';
 
-const ActionButton: React.FC<TouchableHighlightProps> = ({ children, ...rest }) => {
+const ActionButton: React.FC<TouchableNativeFeedbackProps> = ({ children, ...rest }) => {
   return (
-    <TouchableHighlight {...rest}>
+    <TouchableNativeFeedback {...rest}>
       <View style={styles.content}>{children}</View>
-    </TouchableHighlight>
+    </TouchableNativeFeedback>
   );
 };
 

@@ -1,5 +1,6 @@
 /* eslint-disable no-continue */
 import { useState } from 'react';
+import noop from '../../utils/noop';
 import FormInput, { FormInputProps } from '../FormInput';
 
 const DEFAULT_FORMAT_CHAR = '#';
@@ -54,13 +55,9 @@ export const mapMaskCharIndexes = (format: string, formatChar = DEFAULT_FORMAT_C
  *
  * On the other hand, it is a much smaller implementation then web version
  */
-const InputMask: React.FC<InputMaskProps> = ({ format, formatChar, ...rest }) => {
+const InputMask: React.FC<InputMaskProps> = ({ format, formatChar, onChangeText = noop, ...rest }) => {
   const [value, setValue] = useState<string>('');
   const maskMap = mapMaskCharIndexes(format, formatChar);
-
-  const handleChangeText = (text: string) => {
-    setValue(text.replace(/[^a-z0-9]/gi, ''));
-  };
 
   const getDisplayValue = () => {
     let result = '';
@@ -81,6 +78,12 @@ const InputMask: React.FC<InputMaskProps> = ({ format, formatChar, ...rest }) =>
     }
 
     return result;
+  };
+
+  const handleChangeText = (text: string) => {
+    setValue(text.replace(/[^a-z0-9]/gi, ''));
+
+    onChangeText(getDisplayValue());
   };
 
   return <FormInput {...rest} onChangeText={handleChangeText} value={getDisplayValue()} />;
