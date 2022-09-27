@@ -22,10 +22,9 @@ jobs:
           node-version: 16
           cache: 'yarn'
           
-      - run: cd mobile
 
       - name: Install deps
-        run: yarn --pure-lockfile
+        run: yarn --cwd="mobile" --pure-lockfile
       
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
@@ -42,11 +41,11 @@ jobs:
             ${{ runner.os }}-gradle-caches-
             
       - name: Make Gradlew Executable
-        run: cd android && chmod +x ./gradlew
+        run: cd mobile/android && chmod +x ./gradlew
 
       - name: Build Android App Bundle
         run: |
-          cd android && ./gradlew bundleDebug --no-daemon 
+          cd mobile/android && ./gradlew bundleDebug --no-daemon 
             
             
             
