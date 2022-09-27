@@ -12,14 +12,14 @@ interface DeviceActionsModalProps extends ModalProps {
 const DeviceActionsModal: React.FC<DeviceActionsModalProps> = ({ open, onClose, onEdit, onDelete }) => {
   return (
     <Modal onRequestClose={onClose} animationType="fade" visible={open} transparent={true}>
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback testID="overlay-touchable" onPress={onClose}>
         <View style={styles.modalContainer}>
           <View style={styles.modalBody}>
             <View style={styles.actionButtonContainer}>
-              <Button color={theme.colors.primary} title="Editar" onPress={onEdit} />
+              <Button testID="edit-button" color={theme.colors.primary} title="Editar" onPress={onEdit} />
             </View>
             <View style={styles.actionButtonContainer}>
-              <Button color={theme.colors.error} title="Excluir" onPress={onDelete} />
+              <Button testID="delete-button" color={theme.colors.error} title="Excluir" onPress={onDelete} />
             </View>
           </View>
         </View>
