@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '../../pages/Home';
-import NewDeviceScreen from '../../pages/New';
+import Home from '../../screens/Home';
+import NewDeviceScreen from '../../screens/New';
 import theme from '../../styles/theme';
 
 export type RouterParams = {
