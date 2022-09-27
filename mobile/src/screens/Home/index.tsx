@@ -6,9 +6,9 @@ import DeviceActionsModal from '../../components/DeviceActionsModal';
 import DeviceCard from '../../components/DeviceCard';
 import listDevices from '../../lib/listDevices';
 import Device from '../../types/device';
-import noop from '../../utils/noop';
 import styles from './styles';
 import { RouterParams } from '../../components/Router';
+import deleteDevice from '../../lib/deleteDevice';
 
 type HomeProps = NativeStackScreenProps<RouterParams, 'Home'>;
 
@@ -45,6 +45,41 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     navigation.navigate('UpdateDevice', { device: selectedDevice });
   };
 
+  const handleDeleteDevice = () => {
+    if (!selectedDevice) {
+      return;
+    }
+
+    Alert.alert('Confirmar exclusão', `Tem certeza que deseja excluir o dispositivo ${selectedDevice.name}`, [
+      {
+        style: 'cancel',
+        text: 'Cancelar',
+      },
+      {
+        onPress() {
+          handleConfirmDeleteDevice();
+        },
+        text: 'Confirmar',
+      },
+    ]);
+  };
+
+  const handleConfirmDeleteDevice = () => {
+    if (!selectedDevice) {
+      return;
+    }
+
+    deleteDevice(selectedDevice.id)
+      .then(() => {
+        setSelected(undefined);
+        setDevices(devices.filter(device => device.id !== selectedDevice.id));
+      })
+      .catch(err => {
+        Alert.alert('Erro ao excluir dispositivo', err);
+        console.error(err);
+      });
+  };
+
   return (
     <SafeAreaView>
       <FlatList
@@ -55,7 +90,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
       <DeviceActionsModal
         open={!!selected}
         onClose={() => setSelected(undefined)}
-        onDelete={noop}
+        onDelete={handleDeleteDevice}
         onEdit={handleUpdateDevice}
       />
       <View style={styles.buttonContainer}>
