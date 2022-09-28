@@ -13,9 +13,13 @@ export type RouterParams = {
   };
 };
 
-const Stack = createNativeStackNavigator<RouterParams>();
+export const Stack = createNativeStackNavigator<RouterParams>();
 
-const Router: React.FC = () => {
+interface RouterProps {
+  initialRouteName?: keyof RouterParams;
+}
+
+const Router: React.FC<RouterProps> = props => {
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -25,6 +29,7 @@ const Router: React.FC = () => {
         },
         headerTintColor: theme.colors.white,
       }}
+      {...props}
     >
       <Stack.Screen
         name="Home"

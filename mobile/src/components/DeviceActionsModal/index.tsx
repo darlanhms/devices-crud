@@ -11,7 +11,13 @@ interface DeviceActionsModalProps extends ModalProps {
 
 const DeviceActionsModal: React.FC<DeviceActionsModalProps> = ({ open, onClose, onEdit, onDelete }) => {
   return (
-    <Modal onRequestClose={onClose} animationType="fade" visible={open} transparent={true}>
+    <Modal
+      testID="device-actions-modal"
+      onRequestClose={onClose}
+      animationType="fade"
+      visible={open}
+      transparent={true}
+    >
       <TouchableWithoutFeedback testID="overlay-touchable" onPress={onClose}>
         <View style={styles.modalContainer}>
           <View style={styles.modalBody}>

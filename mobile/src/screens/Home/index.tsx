@@ -93,9 +93,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   return (
     <SafeAreaView>
       <FlatList
+        testID="devices-list"
         data={devices}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <DeviceCard device={item} onPress={() => setSelected(item.id)} />}
+        renderItem={({ item }) => (
+          <DeviceCard testID="device-item" device={item} onPress={() => setSelected(item.id)} />
+        )}
       />
       <DeviceActionsModal
         open={!!selected}
