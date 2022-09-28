@@ -6,7 +6,7 @@ interface DeviceCardProps extends TouchableOpacityProps {
   device: Device;
 }
 
-const getTypeLabel = (type: DeviceType) => {
+export const getTypeLabel = (type: DeviceType) => {
   switch (type) {
     case 'camera':
       return 'Câmera';
