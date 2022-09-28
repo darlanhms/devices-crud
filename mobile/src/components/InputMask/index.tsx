@@ -102,7 +102,9 @@ const InputMask: React.FC<InputMaskProps> = ({
     onChangeText(getDisplayValue(newValue));
   };
 
-  return <FormInput {...rest} onChangeText={handleChangeText} value={getDisplayValue(value)} />;
+  return (
+    <FormInput testID="input-mask" {...rest} onChangeText={handleChangeText} value={getDisplayValue(value)} />
+  );
 };
 
 export default InputMask;
