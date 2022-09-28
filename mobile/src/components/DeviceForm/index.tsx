@@ -47,7 +47,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
   }, [initialData]);
 
   return (
-    <View style={styles.container}>
+    <View testID="device-form" style={styles.container}>
       <FormControl>
         <Controller
           name="name"

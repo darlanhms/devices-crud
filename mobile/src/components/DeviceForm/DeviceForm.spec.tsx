@@ -47,7 +47,6 @@ describe('Device Form', () => {
 
     fireEvent.changeText(screen.getByLabelText('Nome'), submitData.name);
     fireEvent.changeText(screen.getByLabelText('Serial'), submitData.serial);
-
     fireEvent.changeText(screen.getByLabelText('Mac address'), submitData.macAddress);
 
     await act(() => {
