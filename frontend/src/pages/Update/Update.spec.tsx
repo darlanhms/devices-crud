@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import fetchMock from 'jest-fetch-mock';
 import { act } from 'react-dom/test-utils';
 import { BrowserRouter } from 'react-router-dom';
 import makeDeviceStub from '../../mocks/device';
+import Device from '../../types/device';
+import fetchHelper from '../../utils/fetch';
 import UpdateDevicePage from './index';
 
 const mockedUsedNavigate = jest.fn();
@@ -19,11 +20,11 @@ describe('Update device page', () => {
   it('renders a title and device form', async () => {
     const deviceData = makeDeviceStub();
 
-    let resolveFindById: (value: string) => void;
-    fetchMock.mockResponseOnce(
+    let resolveFindById: (value: Device) => void;
+    jest.spyOn(fetchHelper, 'get').mockImplementationOnce(
       () =>
-        new Promise(_resolve => {
-          resolveFindById = _resolve;
+        new Promise(resolve => {
+          resolveFindById = resolve;
         }),
     );
 
@@ -32,7 +33,7 @@ describe('Update device page', () => {
     });
 
     await act(async () => {
-      resolveFindById(JSON.stringify(deviceData));
+      resolveFindById(deviceData);
     });
 
     expect(screen.getByText(/editar dispositivo/i)).toBeInTheDocument();
@@ -40,11 +41,19 @@ describe('Update device page', () => {
   });
 
   it('submits a update device request when form is correct', async () => {
-    let resolveFindById: (value: string) => void;
-    fetchMock.mockResponseOnce(
+    let resolveFindById: (value: Device) => void;
+    jest.spyOn(fetchHelper, 'get').mockImplementationOnce(
       () =>
-        new Promise(_resolve => {
-          resolveFindById = _resolve;
+        new Promise(resolve => {
+          resolveFindById = resolve;
+        }),
+    );
+
+    let resolveUpdate: (value: string) => void;
+    jest.spyOn(fetchHelper, 'put').mockImplementationOnce(
+      () =>
+        new Promise(resolve => {
+          resolveUpdate = resolve;
         }),
     );
 
@@ -55,16 +64,8 @@ describe('Update device page', () => {
     });
 
     await act(async () => {
-      resolveFindById(JSON.stringify(makeDeviceStub()));
+      resolveFindById(makeDeviceStub());
     });
-
-    let resolveUpdate: (value: string) => void;
-    fetchMock.mockResponseOnce(
-      () =>
-        new Promise(_resolve => {
-          resolveUpdate = _resolve;
-        }),
-    );
 
     await user.type(screen.getByLabelText('Nome'), faker.name.fullName());
     await user.type(screen.getByLabelText('Mac Address'), faker.internet.mac());
@@ -72,7 +73,7 @@ describe('Update device page', () => {
     await user.click(screen.getByText(/confirmar/i));
 
     await act(async () => {
-      resolveUpdate(JSON.stringify({ body: 'ok' }));
+      resolveUpdate('ok');
     });
 
     expect(mockedUsedNavigate).toHaveBeenCalledWith('/');

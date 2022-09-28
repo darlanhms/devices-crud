@@ -1,5 +1,5 @@
 class FetchHelper {
-  baseUrl = 'http://localhost:3333';
+  baseUrl = 'http://192.168.2.55:3333';
 
   private getUrl(path: string) {
     if (!path.startsWith('/')) {

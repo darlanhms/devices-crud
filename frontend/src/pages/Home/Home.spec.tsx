@@ -1,19 +1,20 @@
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
-import fetchMock from 'jest-fetch-mock';
 import makeDeviceStub from '../../mocks/device';
+import Device from '../../types/device';
+import fetchHelper from '../../utils/fetch';
 import Home from './index';
 
 const devicesStub = [makeDeviceStub(), makeDeviceStub(), makeDeviceStub()];
 
 describe('Home', () => {
   beforeEach(async () => {
-    let resolve: (value: string) => void;
-    fetchMock.mockResponseOnce(
+    let resolveListDevices: (value: Array<Device>) => void;
+    jest.spyOn(fetchHelper, 'get').mockImplementationOnce(
       () =>
-        new Promise(_resolve => {
-          resolve = _resolve;
+        new Promise(resolve => {
+          resolveListDevices = resolve;
         }),
     );
 
@@ -22,7 +23,7 @@ describe('Home', () => {
     });
 
     await act(async () => {
-      resolve(JSON.stringify(devicesStub));
+      resolveListDevices(devicesStub);
     });
   });
 
@@ -93,11 +94,11 @@ describe('Home', () => {
   });
 
   it('hides delete modal when user confirms action and request is processed', async () => {
-    let resolve: (value: string) => void;
-    fetchMock.mockResponseOnce(
+    let resolveDelete: (value: string) => void;
+    jest.spyOn(fetchHelper, 'delete').mockImplementationOnce(
       () =>
-        new Promise(_resolve => {
-          resolve = _resolve;
+        new Promise(resolve => {
+          resolveDelete = resolve;
         }),
     );
 
@@ -115,7 +116,7 @@ describe('Home', () => {
     await user.click(confirmButton);
 
     await act(async () => {
-      resolve(JSON.stringify({ body: 'ok' }));
+      resolveDelete('ok');
     });
 
     expect(screen.queryByTestId('modal')).toBeFalsy();

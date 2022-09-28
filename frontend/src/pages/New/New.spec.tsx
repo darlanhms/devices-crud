@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import fetchMock from 'jest-fetch-mock';
 import { act } from 'react-dom/test-utils';
 import { BrowserRouter } from 'react-router-dom';
+import fetchHelper from '../../utils/fetch';
 import NewDevicePage from './index';
 
 const mockedUsedNavigate = jest.fn();
@@ -22,11 +22,11 @@ describe('New device page', () => {
   });
 
   it('submits a new device request when form is correct', async () => {
-    let resolve: (value: string) => void;
-    fetchMock.mockResponseOnce(
+    let resolveCreate: (value: string) => void;
+    jest.spyOn(fetchHelper, 'post').mockImplementationOnce(
       () =>
-        new Promise(_resolve => {
-          resolve = _resolve;
+        new Promise(resolve => {
+          resolveCreate = resolve;
         }),
     );
 
@@ -42,7 +42,7 @@ describe('New device page', () => {
     await user.click(screen.getByText(/confirmar/i));
 
     await act(async () => {
-      resolve(JSON.stringify({ body: 'ok' }));
+      resolveCreate('ok');
     });
 
     expect(mockedUsedNavigate).toHaveBeenCalledWith('/');
