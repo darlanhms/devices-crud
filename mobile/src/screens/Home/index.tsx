@@ -52,6 +52,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     }
 
     navigation.navigate('UpdateDevice', { device: selectedDevice });
+    setSelected(undefined);
   };
 
   const handleDeleteDevice = () => {
