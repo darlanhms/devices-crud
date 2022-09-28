@@ -55,6 +55,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormInput
               label="Nome"
+              accessibilityLabel="Nome"
               error={!!errors.name}
               helperText={errors.name?.message}
               onChangeText={onChange}
@@ -70,6 +71,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <FormInput
+              accessibilityLabel="Serial"
               error={!!errors.serial}
               helperText={errors.serial?.message}
               label="Serial"
@@ -87,6 +89,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <InputMask
               format="##-##-##-##-##-##"
+              accessibilityLabel="Mac address"
               label="Mac address"
               error={!!errors.macAddress}
               helperText={errors.macAddress?.message}
@@ -104,7 +107,11 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit, initialData }) => {
             name="type"
             control={control}
             render={({ field: { onChange, value } }) => (
-              <Picker selectedValue={value} onValueChange={itemValue => onChange(itemValue)}>
+              <Picker
+                testID="type-picker"
+                selectedValue={value}
+                onValueChange={itemValue => onChange(itemValue)}
+              >
                 <Picker.Item label="Câmera" value="camera" />
                 <Picker.Item label="Sensor" value="sensor" />
                 <Picker.Item label="Controle remoto" value="remoteControl" />
