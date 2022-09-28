@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { SafeAreaView, Alert, FlatList, Text, View } from 'react-native';
+/* eslint-disable global-require */
+import React, { useState, useEffect, useMemo, useLayoutEffect } from 'react';
+import { SafeAreaView, Alert, FlatList, Image, TouchableNativeFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import ActionButton from '../../components/ActionButton';
 import DeviceActionsModal from '../../components/DeviceActionsModal';
 import DeviceCard from '../../components/DeviceCard';
 import listDevices from '../../lib/listDevices';
 import Device from '../../types/device';
-import styles from './styles';
 import { RouterParams } from '../../components/Router';
 import deleteDevice from '../../lib/deleteDevice';
 
@@ -27,6 +26,16 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     });
 
     return unsubscribe;
+  }, [navigation]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableNativeFeedback onPress={handleNewDevice}>
+          <Image style={{ width: 20, height: 20 }} source={require('../../assets/plus.png')} />
+        </TouchableNativeFeedback>
+      ),
+    });
   }, [navigation]);
 
   const selectedDevice = useMemo(() => {
@@ -93,13 +102,6 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         onDelete={handleDeleteDevice}
         onEdit={handleUpdateDevice}
       />
-      <View style={styles.buttonContainer}>
-        <View style={styles.addButton}>
-          <ActionButton onPress={handleNewDevice}>
-            <Text style={styles.buttonText}>+</Text>
-          </ActionButton>
-        </View>
-      </View>
     </SafeAreaView>
   );
 };
