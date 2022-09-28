@@ -13,6 +13,8 @@ export const createNavigationTestProps = (props?: Partial<NavigationProps>): any
   navigation: {
     navigate: jest.fn(),
     goBack: jest.fn(),
+    setOptions: jest.fn(),
+    addListener: jest.fn(),
   },
   ...props,
 });

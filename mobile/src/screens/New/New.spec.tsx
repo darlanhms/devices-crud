@@ -1,18 +1,14 @@
 import { faker } from '@faker-js/faker';
-import { NavigationContainer } from '@react-navigation/native';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { act } from 'react-test-renderer';
-import Router from '../../components/Router';
+import NewDeviceScreen from '.';
 import { SubmitDeviceData } from '../../types/device';
 import fetchHelper from '../../utils/fetch';
+import { createNavigationTestProps } from '../../utils/tests';
 
 describe('New device', () => {
   it('renders form', () => {
-    render(
-      <NavigationContainer>
-        <Router initialRouteName="NewDevice" />
-      </NavigationContainer>,
-    );
+    render(<NewDeviceScreen {...createNavigationTestProps()} />);
 
     expect(screen.getByTestId('device-form')).toBeTruthy();
   });
@@ -35,11 +31,7 @@ describe('New device', () => {
       type: 'camera',
     };
 
-    render(
-      <NavigationContainer>
-        <Router initialRouteName="NewDevice" />
-      </NavigationContainer>,
-    );
+    render(<NewDeviceScreen {...createNavigationTestProps()} />);
 
     const submitButton = screen.getByText(/confirmar/i);
 
